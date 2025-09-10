@@ -169,6 +169,7 @@
     </footer>
   </section>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.0/marked.min.js"></script>
   <script>
     const el = {
       body: document.body,
@@ -298,7 +299,8 @@
         })
       }).then(async (data) => {
         const response = await data.json();
-            addMessage('bot', response.data);
+        const htmlOutput = marked.parse(response.data);
+            addMessage('bot', htmlOutput);
             setTyping(false);
       });
     }
