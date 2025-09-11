@@ -5,8 +5,8 @@ const index = async(req, res) => {
 }
 
 const sendMessage = async (req, res) => {
-    const { userInput } = req.body;
-    const response = await chatCompletion(userInput);
+    const { userInput, model } = req.body;
+    const response = await chatCompletion(userInput, model);
     console.log(response);
     return res.json({ status: "success", data: response });
 }

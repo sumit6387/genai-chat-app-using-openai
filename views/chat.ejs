@@ -160,7 +160,12 @@
       <div class="composer">
         <div class="tools">
           <button class="icon-btn" title="Attach (demo)">📎</button>
-          <button class="icon-btn" title="Emoji (demo)">😊</button>
+          <select name="model" id="selected-model" class="icon-btn" style="    width: 100px;">
+            <option value="gpt-4o-mini">gpt-4o-mini</option>
+            <option value="gpt-5">gpt-5</option>
+            <option value="gpt-5-mini">gpt-5-mini</option>
+            <option value="gpt-5-nano">gpt-5-nano</option>
+          </select>
         </div>
         <textarea id="input" placeholder="Type a message… (Enter to send, Shift+Enter for new line)" aria-label="Message input"></textarea>
         <button id="send" class="send-btn" title="Send message">Send ➤</button>
@@ -176,6 +181,7 @@
       list: document.getElementById('messages'),
       input: document.getElementById('input'),
       send: document.getElementById('send'),
+      model: document.getElementById("selected-model"),
       typing: document.getElementById('typing'),
       theme: document.getElementById('themeToggle'),
       clear: document.getElementById('clearChat'),
@@ -287,6 +293,7 @@
       addMessage('me', text.replace(/\n/g, '<br>'));
       el.input.value = '';
       el.input.style.height = '36px';
+      const model = el.model.value;
 
       setTyping(true);
       fetch("/", {
@@ -295,7 +302,8 @@
         'Content-Type': 'application/json'
     },
         body: JSON.stringify({
-            userInput: text
+            userInput: text,
+            model: model
         })
       }).then(async (data) => {
         const response = await data.json();

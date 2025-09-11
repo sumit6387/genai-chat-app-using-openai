@@ -3,10 +3,11 @@ require("dotenv/config");
 
 const client = OpenAI();
 
-const chatCompletion = async(userInput) =>{
+const chatCompletion = async(userInput, model) =>{
+    console.log(model)
     const response = await client.chat.completions.create(
         {
-            model: "gpt-4o-mini",
+            model: model,
             messages: [
                 { role: 'user', content: userInput },
             ]
